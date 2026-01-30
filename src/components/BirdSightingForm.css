@@ -1,0 +1,82 @@
+.bird-form {
+  background: var(--paper);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px var(--shadow);
+  transform: rotate(-0.5deg);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  background: white;
+  transition: all 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--text-primary);
+  box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.2);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.submit-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.submit-btn {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+.cancel-btn {
+  background: #ddd;
+  color: var(--text-primary);
+}
+
+.cancel-btn:hover {
+  background: #ccc;
+}
