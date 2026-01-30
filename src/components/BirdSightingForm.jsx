@@ -28,24 +28,32 @@ function BirdSightingForm({ onSubmit, onCancel }) {
 
     // Use browser geolocation if coordinates not provided
     if (!formData.latitude || !formData.longitude) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          onSubmit({
-            ...formData,
-            latitude: position.coords.latitude.toString(),
-            longitude: position.coords.longitude.toString()
-          })
-        },
-        (error) => {
-          // Default to a central location if geolocation fails
-          console.warn('Geolocation error:', error)
-          onSubmit({
-            ...formData,
-            latitude: '40.7128',  // Default to New York
-            longitude: '-74.0060'
-          })
-        }
-      )
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            onSubmit({
+              ...formData,
+              latitude: position.coords.latitude.toString(),
+              longitude: position.coords.longitude.toString()
+            })
+          },
+          (error) => {
+            console.warn('Geolocation error:', error)
+            const userConfirmed = window.confirm(
+              'Unable to get your location. Use default location (New York City)?'
+            )
+            if (userConfirmed) {
+              onSubmit({
+                ...formData,
+                latitude: '40.7128',
+                longitude: '-74.0060'
+              })
+            }
+          }
+        )
+      } else {
+        alert('Geolocation is not supported by your browser. Please enter coordinates manually.')
+      }
     } else {
       onSubmit(formData)
     }
@@ -90,6 +98,8 @@ function BirdSightingForm({ onSubmit, onCancel }) {
             onChange={handleChange}
             placeholder="40.7128"
             step="any"
+            min="-90"
+            max="90"
           />
         </div>
 
@@ -103,6 +113,8 @@ function BirdSightingForm({ onSubmit, onCancel }) {
             onChange={handleChange}
             placeholder="-74.0060"
             step="any"
+            min="-180"
+            max="180"
           />
         </div>
       </div>

@@ -5,28 +5,21 @@ import BirdMap from './components/BirdMap'
 import ScrapbookGallery from './components/ScrapbookGallery'
 
 function App() {
-  const [sightings, setSightings] = useState([])
-  const [showForm, setShowForm] = useState(false)
-
-  // Load sightings from localStorage on mount
-  useEffect(() => {
+  const [sightings, setSightings] = useState(() => {
     const stored = localStorage.getItem('birdSightings')
-    if (stored) {
-      setSightings(JSON.parse(stored))
-    }
-  }, [])
+    return stored ? JSON.parse(stored) : []
+  })
+  const [showForm, setShowForm] = useState(false)
 
   // Save sightings to localStorage whenever they change
   useEffect(() => {
-    if (sightings.length > 0) {
-      localStorage.setItem('birdSightings', JSON.stringify(sightings))
-    }
+    localStorage.setItem('birdSightings', JSON.stringify(sightings))
   }, [sightings])
 
   const addSighting = (sighting) => {
     const newSighting = {
       ...sighting,
-      id: Date.now(),
+      id: crypto.randomUUID(),
       date: new Date().toISOString()
     }
     setSightings([newSighting, ...sightings])
